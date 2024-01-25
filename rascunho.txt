@@ -1,0 +1,51 @@
+Start: 24/01 21:30
+
+Configuração
+- Criar uma aplicação Rails API com postgres
+- Configurar rubocop e rspec
+- Anotar os requisitos para subir o projeto localmente (versão das libs, etc)
+- Subir o projeto localmente
+
+API
+- Endpoint recebe os produtos e as quantidades de cada produto
+- Endpoint retorna o valor de cada produto com o imposto, o total de imposto e o total da compra
+
+Banco de dados
+- products
+  - name
+  - price
+- taxes
+  - name
+  - rate
+- product_taxes
+  - product_id
+  - tax_id
+- receipts
+  - total_taxes
+  - total
+- receipt_products
+  - receipt_id
+  - product_id
+  - amount
+  - total_taxes
+  - total
+
+Tasks
+- Criar migrations com as tabelas
+- Criar models + testes
+- Criar o ReceiptProducts::CreateService
+  - Recebe receipt_id, product_id e amount
+  - Calcula o total_taxes e total 
+  - Cria e retorna o ReceiptProduct
+- Criar Receipts::CreateUseCase
+  - Recebe um array de products
+  - (Transaction)
+  - Cria uma Receipt vazia
+  - Para cada product, chama o ReceiptProducts::CreateService
+  - Calcula o total_taxes e total do Receipt e faz update
+  - Retorna o Receipt
+- Criar ReceiptsController com action create
+  - Recebe os ids dos produtos e as quantidades
+    params = { products: [{ id: 123, amount: 2 }, {...}] }
+  - Chama o Receipts::CreateUseCase que retorna o Receipt
+  - Retorna um json de uma Receipt incluindo o ReceiptProducts

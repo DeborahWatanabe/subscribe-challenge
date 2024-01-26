@@ -13,6 +13,8 @@ Layout/LineLength:
   Enabled: true
   Max: 120
 
+Lint/MissingSuper:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 RSpec/ExampleLength:

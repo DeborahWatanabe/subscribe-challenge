@@ -10,8 +10,8 @@ describe ReceiptProducts::CreateService do
       params = {
         receipt_id: receipt.id,
         product_id: product_tax.product_id,
-        amount: 1,
-        price: 10.0
+        amount: '1',
+        price: '10.0'
       }
 
       expect { described_class.call(params) }
@@ -36,8 +36,8 @@ describe ReceiptProducts::CreateService do
         params = {
           receipt_id: receipt.id,
           product_id: product_tax.product_id,
-          amount: 1,
-          price: 10.2
+          amount: '1',
+          price: '10.2'
         }
 
         result = described_class.call(params)
@@ -52,8 +52,8 @@ describe ReceiptProducts::CreateService do
         params = {
           receipt_id: receipt.id,
           product_id: product_tax.product_id,
-          amount: 1,
-          price: 10.9
+          amount: '1',
+          price: '10.9'
         }
 
         result = described_class.call(params)
@@ -70,8 +70,8 @@ describe ReceiptProducts::CreateService do
         params = {
           receipt_id: receipt.id,
           product_id: product_tax.product_id,
-          amount: 1,
-          price: 10.0
+          amount: '1',
+          price: '10.0'
         }
 
         result = described_class.call(params)

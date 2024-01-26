@@ -21,7 +21,7 @@ module ReceiptProducts
     private
 
     def raw_tax
-      Product.includes(:taxes).find(@params[:product_id]).taxes.sum(:rate) * @params[:price]
+      Product.includes(:taxes).find(@params[:product_id]).taxes.sum(:rate) * BigDecimal(@params[:price])
     end
 
     # The rounding rules for sales tax are that for a tax rate of n%,

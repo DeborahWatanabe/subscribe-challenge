@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe ReceiptProducts::CreateService do
-  describe '#call' do
+  describe '.call' do
     let(:receipt) { create(:receipt) }
     let(:tax) { create(:tax, rate: 0.1) }
     let(:product_tax) { create(:product_tax, tax:) }
@@ -14,7 +14,7 @@ describe ReceiptProducts::CreateService do
         price: 10.0
       }
 
-      expect { described_class.new(params).call }
+      expect { described_class.call(params) }
         .to change(ReceiptProduct, :count).by(1)
       expect(ReceiptProduct.last).to have_attributes(
         receipt_id: receipt.id,
@@ -40,7 +40,7 @@ describe ReceiptProducts::CreateService do
           price: 10.2
         }
 
-        result = described_class.new(params).call
+        result = described_class.call(params)
 
         # raw_tax = 1.0098, rounded_tax = 1.05
         expect(result.tax).to eq(1.05)
@@ -56,7 +56,7 @@ describe ReceiptProducts::CreateService do
           price: 10.9
         }
 
-        result = described_class.new(params).call
+        result = described_class.call(params)
 
         # raw_tax = 1.0791, rounded_tax = 1.10
         expect(result.tax).to eq(1.1)
@@ -74,7 +74,7 @@ describe ReceiptProducts::CreateService do
           price: 10.0
         }
 
-        result = described_class.new(params).call
+        result = described_class.call(params)
 
         # raw_tax = 0.5, rounded_tax = 0.5
         expect(result.tax).to eq(0.5)

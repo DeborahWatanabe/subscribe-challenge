@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ReceiptProducts
-  class CreateService
+  class CreateService < ApplicationService
     ROUNDING_VALUE = BigDecimal('0.05')
 
     def initialize(params)

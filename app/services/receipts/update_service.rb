@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Receipts
-  class UpdateService
+  class UpdateService < ApplicationService
     def initialize(receipt)
       @receipt = receipt
     end

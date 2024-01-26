@@ -4,7 +4,8 @@ class ReceiptsController < ApplicationController
   def create
     receipt = Receipts::CreateUseCase.call(create_params[:products])
 
-    render json: Receipt.includes(receipt_products: :product).find(receipt.id)
+    render json: Receipt.includes(receipt_products: :product).find(receipt.id),
+           status: :created
   end
 
   private

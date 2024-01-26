@@ -4,7 +4,8 @@ describe ReceiptsController do
   describe 'create' do
     let(:product) { create(:product) }
     let(:tax) { create(:tax, rate: 0.1) }
-    let!(:product_tax) { create(:product_tax, tax:, product:) }
+
+    before { create(:product_tax, tax:, product:) }
 
     it 'returns a receipt with its products' do
       params = {

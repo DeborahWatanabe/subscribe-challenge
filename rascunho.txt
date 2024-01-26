@@ -7,13 +7,12 @@ Configuração
 - Subir o projeto localmente
 
 API
-- Endpoint recebe os produtos e as quantidades de cada produto
+- Endpoint recebe os produtos e as quantidades de cada produto E OS VALORES
 - Endpoint retorna o valor de cada produto com o imposto, o total de imposto e o total da compra
 
 Banco de dados
 - products
   - name
-  - price
 - taxes
   - name
   - rate
@@ -27,15 +26,15 @@ Banco de dados
   - receipt_id
   - product_id
   - amount
-  - total_taxes
-  - total
+  - price
+  - tax
 
 Tasks
 - Criar migrations com as tabelas
 - Criar models + testes
 - Criar o ReceiptProducts::CreateService
-  - Recebe receipt_id, product_id e amount
-  - Calcula o total_taxes e total 
+  - Recebe receipt_id, product_id e amount E PRICE
+  - Calcula o tax 
   - Cria e retorna o ReceiptProduct
 - Criar Receipts::CreateUseCase
   - Recebe um array de products
@@ -45,7 +44,14 @@ Tasks
   - Calcula o total_taxes e total do Receipt e faz update
   - Retorna o Receipt
 - Criar ReceiptsController com action create
-  - Recebe os ids dos produtos e as quantidades
-    params = { products: [{ id: 123, amount: 2 }, {...}] }
+  - Recebe os ids dos produtos e as quantidades E OS PREÇOS
+    params = { products: [{ id: 123, amount: 2, price: 55.55 }, {...}] }
   - Chama o Receipts::CreateUseCase que retorna o Receipt
   - Retorna um json de uma Receipt incluindo o ReceiptProducts
+
+Steps
+- Verificar versões do Ruby, Rails e Postgres
+- bundle e rails db:create
+- bundle e rails db:migrate
+- bundle e rails db:migrate RAILS_ENV=test
+- bundle e rspec

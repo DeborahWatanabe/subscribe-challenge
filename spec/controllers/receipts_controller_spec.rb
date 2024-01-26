@@ -2,47 +2,49 @@
 
 describe ReceiptsController do
   describe 'create' do
-    let(:product) { create(:product) }
-    let(:tax) { create(:tax, rate: 0.1) }
-    let(:params) do
-      {
-        products: [
-          {
-            id: product.id,
-            amount: 1,
-            price: 10.0
-          }
-        ]
-      }
-    end
-
-    before { create(:product_tax, tax:, product:) }
-
-    it 'returns status created' do
-      post(:create, params:)
-
-      expect(response).to have_http_status(:created)
-    end
-
-    it 'returns a receipt with its products' do
-      post(:create, params:)
-
-      created_receipt = Receipt.last
-
-      expect(response.parsed_body).to eq(
+    context 'when success' do
+      let(:product) { create(:product) }
+      let(:tax) { create(:tax, rate: 0.1) }
+      let(:params) do
         {
-          'id' => created_receipt.id,
-          'total_taxes' => '1.0',
-          'total' => '11.0',
-          'receipt_products' => [
+          products: [
             {
-              'amount' => 1,
-              'product_name' => product.name,
-              'total' => '11.0'
+              id: product.id,
+              amount: 1,
+              price: 10.0
             }
           ]
         }
-      )
+      end
+
+      before { create(:product_tax, tax:, product:) }
+
+      it 'returns status created' do
+        post(:create, params:)
+
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns a receipt with its products' do
+        post(:create, params:)
+
+        created_receipt = Receipt.last
+
+        expect(response.parsed_body).to eq(
+          {
+            'id' => created_receipt.id,
+            'total_taxes' => '1.0',
+            'total' => '11.0',
+            'receipt_products' => [
+              {
+                'amount' => 1,
+                'product_name' => product.name,
+                'total' => '11.0'
+              }
+            ]
+          }
+        )
+      end
     end
 
     context 'input 1' do
@@ -166,10 +168,10 @@ describe ReceiptsController do
       let(:perfume) { create(:product, name: 'bottle of perfume') }
       let(:pills) { create(:product, name: 'packet of headache pills') }
       let(:chocolates) { create(:product, name: 'imported boxes of chocolates') }
-      let(:basic_tax) { create(:tax, name: 'basic tax', rate: 0.1) }
-      let(:import_duty) { create(:tax, name: 'import duty', rate: 0.05) }
 
       before do
+        basic_tax = create(:tax, name: 'basic tax', rate: 0.1)
+        import_duty = create(:tax, name: 'import duty', rate: 0.05)
         create(:product_tax, tax: basic_tax, product: imported_perfume)
         create(:product_tax, tax: import_duty, product: imported_perfume)
         create(:product_tax, tax: basic_tax, product: perfume)

@@ -20,8 +20,8 @@ describe ReceiptProducts::CreateService do
         receipt_id: receipt.id,
         product_id: product_tax.product_id,
         amount: 1,
-        price: BigDecimal('10.0'),
-        tax: BigDecimal('1.0')
+        price: 10.0,
+        tax: 1.0
       )
     end
   end
@@ -43,7 +43,7 @@ describe ReceiptProducts::CreateService do
         result = described_class.new(params).call
 
         # raw_tax = 1.0098, rounded_tax = 1.05
-        expect(result.tax).to eq(BigDecimal('1.05'))
+        expect(result.tax).to eq(1.05)
       end
     end
 
@@ -59,7 +59,7 @@ describe ReceiptProducts::CreateService do
         result = described_class.new(params).call
 
         # raw_tax = 1.0791, rounded_tax = 1.10
-        expect(result.tax).to eq(BigDecimal('1.1'))
+        expect(result.tax).to eq(1.1)
       end
     end
 
@@ -77,7 +77,7 @@ describe ReceiptProducts::CreateService do
         result = described_class.new(params).call
 
         # raw_tax = 0.5, rounded_tax = 0.5
-        expect(result.tax).to eq(BigDecimal('0.5'))
+        expect(result.tax).to eq(0.5)
       end
     end
   end

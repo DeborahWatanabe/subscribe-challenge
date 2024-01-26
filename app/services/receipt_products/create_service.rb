@@ -9,7 +9,7 @@ module ReceiptProducts
     end
 
     def call
-      ReceiptProduct.create(
+      ReceiptProduct.create!(
         receipt_id: @params[:receipt_id],
         product_id: @params[:product_id],
         amount: @params[:amount],

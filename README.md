@@ -1,24 +1,31 @@
-# README
+# Subscribe Code Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Instructions: [challenge.md](https://github.com/DeborahWatanabe/subscribe-challenge/blob/main/challenge.md)
 
-Things you may want to cover:
+## Solution
+* Language/Framework: Ruby on Rails
+* `POST receipt/` - Receive the purchased products and return the calculated price and taxes.
 
-* Ruby version
+## Installation
 
-* System dependencies
+### Dependencies
 
-* Configuration
+* Ruby: 3.2.2
+* Rails: 7.1.2
+* Postgres: 14.10
 
-* Database creation
+### Instructions
 
-* Database initialization
+* bundle
+* bundle e rails db:create
+* bundle e rails db:migrate
+* bundle e rails db:migrate RAILS_ENV=test
+* bundle e rspec
 
-* How to run the test suite
+## How to test
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the unit tests on `spec/controllers/receipts_controller_spec.rb`
 
-* Deployment instructions
-
-* ...
+```
+bundle e rspec spec/controllers/receipts_controller_spec.rb
+```
